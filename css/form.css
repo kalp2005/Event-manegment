@@ -1,0 +1,96 @@
+/* --- Form Container (to match login page) --- */
+#event-form {
+    background-color: var(--background-color);
+    padding: 40px;
+    border-radius: 10px;
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 0 25px var(--primary-color);
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+/* --- Input Fields (to match login page) --- */
+.input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin-bottom: 30px;
+}
+
+.input-box.textarea {
+    height: auto; /* Allow textarea container to grow */
+    margin-bottom: 20px;
+}
+
+.input-box input,
+.input-box textarea {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: #fff;
+    font-weight: 500;
+    border-bottom: 2px solid #fff;
+    transition: .5s;
+}
+
+.input-box textarea {
+    height: 120px;
+    resize: vertical;
+    padding-top: 15px; /* Align text better */
+}
+
+.input-box input:focus,
+.input-box input:valid,
+.input-box textarea:focus,
+.input-box textarea:valid {
+    border-bottom-color: var(--primary-color);
+}
+
+.input-box label {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    font-size: 16px;
+    transition: .5s;
+    pointer-events: none;
+}
+
+.input-box.textarea label {
+    top: 15px; /* Adjust for textarea */
+    transform: none;
+}
+
+.input-box input:focus ~ label,
+.input-box input:valid ~ label,
+.input-box textarea:focus ~ label,
+.input-box textarea:valid ~ label {
+    top: -5px;
+    color: var(--primary-color);
+}
+
+/* FIX: Force date/time label to stay up */
+.input-box input[type="datetime-local"] ~ label {
+    top: -5px;
+    color: var(--primary-color);
+}
+
+#eventDateTimeLabel {
+    cursor: pointer;
+    pointer-events: all;
+}
+
+/* --- Form Actions --- */
+.form-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 40px;
+}
+
+.form-actions .btn {
+    flex: 1;
+}
+
