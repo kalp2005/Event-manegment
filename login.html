@@ -13,7 +13,7 @@
         <div class="curved-shape"></div>
         <div class="curved-shape2"></div>
 
-        <!-- Login Form Box (No changes here) -->
+        <!-- Login Form Box -->
         <div class="form-box Login">
             <h2 class="animation" style="--D:0; --S:21">Login</h2>
             <form id="loginForm">
@@ -35,9 +35,10 @@
                 </div>
             </form>
         </div>
+        
         <div class="info-content Login">
-            <h2 class="animation" style="--D:0; --S:20">WELCOME BACK!</h2>
-            <p class="animation" style="--D:1; --S:21">We are happy to have you with us again.</p>
+            <h2 class="animation" style="--D:0; --S:1">WELCOME BACK!</h2>
+            <p class="animation" style="--D:1; --S:2">We are happy to have you with us again.</p>
         </div>
 
         <!-- UPDATED Registration Form Box -->
@@ -59,13 +60,16 @@
                     <button type="button" id="sendOtpBtn" class="btn">Send</button>
                 </div>
                 
-                <!-- NEW STRUCTURE: Hidden OTP input with Resend button inside -->
+                <!-- UPDATED STRUCTURE: Hidden OTP section with Verify and Resend buttons -->
                 <div id="otpSection" class="hidden animation" style="--li:20; --S:3">
                     <div class="input-box">
                         <input type="number" id="registerOtp" required>
                         <label>Enter 6-Digit OTP</label>
-                        <!-- Moved Resend button here -->
-                        <button type="button" id="resendOtpBtn" class="resend-btn">Resend</button>
+                    </div>
+                    <!-- NEW: Container for the OTP action buttons -->
+                    <div class="otp-actions">
+                        <button type="button" id="verifyOtpBtn" class="btn">Verify</button>
+                        <button type="button" id="resendOtpBtn" class="btn resend-btn">Resend</button>
                     </div>
                 </div>
 
@@ -76,7 +80,8 @@
                 </div>
 
                 <div class="input-box animation" style="--li:22; --S:5">
-                    <button class="btn" type="submit">Register</button>
+                    <!-- The main register button will be disabled initially -->
+                    <button class="btn" type="submit" id="registerBtn" disabled>Register</button>
                 </div>
 
                 <div class="regi-link animation" style="--li:23; --S:6">
@@ -95,7 +100,7 @@
     </div>
 
     <script src="js/auth.js"></script>
-    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <script src="https://unpkg.com/box-icons@2.1.4/dist/boxicons.js"></script>
 </body>
 </html>
 

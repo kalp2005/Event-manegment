@@ -20,7 +20,7 @@ body {
 .container {
     position: relative;
     width: 750px;
-    height: 550px; 
+    height: 550px;
     border: 2px solid #e46033;
     box-shadow: 0 0 25px #e46033;
     overflow: hidden;
@@ -32,23 +32,26 @@ body {
     width: 50%;
     height: 100%;
     display: flex;
-    justify-content: center;
     flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 40px;
 }
 
 .form-box.Login {
     left: 0;
-    padding: 0 40px;
+    padding: 40px;
+    justify-content: center; 
 }
 
 .form-box.Register {
     right: 0;
-    padding: 0 40px;
+    padding: 40px;
 }
 
 .form-box h2 {
     font-size: 32px;
     text-align: center;
+    margin-bottom: 10px;
 }
 
 .form-box .input-box {
@@ -68,8 +71,8 @@ body {
     color: #fff;
     font-weight: 600;
     border-bottom: 2px solid #fff;
-    padding-right: 30px; 
-    padding-top: 15px; 
+    padding-right: 35px;
+    padding-top: 15px;
     transition: .5s;
 }
 
@@ -148,6 +151,16 @@ input[type=number] {
     top: 0;
 }
 
+.btn:disabled {
+    border-color: #555;
+    color: #555;
+    cursor: not-allowed;
+}
+.btn:disabled::before {
+    display: none;
+}
+
+
 .regi-link {
     font-size: 14px;
     text-align: center;
@@ -164,7 +177,6 @@ input[type=number] {
     text-decoration: underline;
 }
 
-/* --- NEW STYLES for Integrated Resend Button --- */
 .email-otp-group {
     display: flex;
     align-items: flex-end;
@@ -181,35 +193,29 @@ input[type=number] {
     flex-shrink: 0;
 }
 
-/* Position the resend button inside the OTP input box */
+.otp-actions {
+    display: flex;
+    gap: 10px;
+    /* FIX: Changed negative margin to a positive one */
+    margin-top: 10px; 
+}
+
+.otp-actions .btn {
+    flex: 1;
+    margin-top: 0;
+}
+
 .resend-btn {
-    position: absolute;
-    top: 50%;
-    right: 5px;
-    transform: translateY(-50%);
     background: none;
-    border: none;
-    color: #e46033;
-    font-weight: 600;
-    font-size: 14px;
-    cursor: pointer;
-    padding: 5px;
-    text-decoration: underline;
-}
-
-/* Style for the button when it's disabled (showing the timer) */
-.resend-btn:disabled {
+    border-color: #555;
     color: #aaa;
+}
+.resend-btn:disabled {
+    border-color: #555;
+    color: #555;
     cursor: not-allowed;
-    text-decoration: none;
 }
 
-/* Adjust OTP input padding to not overlap with the resend button */
-#registerOtp {
-    padding-right: 120px; /* Make space for the button text */
-}
-
-/* --- End of NEW STYLES --- */
 
 .hidden {
     display: none !important;
@@ -223,19 +229,19 @@ input[type=number] {
     display: flex;
     justify-content: center;
     flex-direction: column;
+    pointer-events: none; 
 }
 
 .info-content.Login {
     right: 0;
     text-align: right;
-    padding: 0 40px 60px 150px;
+    padding: 40px;
 }
 
 .info-content.Register {
     left: 0;
     text-align: left;
-    padding: 0 150px 60px 38px;
-    pointer-events: none;
+    padding: 40px;
 }
 
 .curved-shape, .curved-shape2 {
@@ -262,7 +268,7 @@ input[type=number] {
 }
 
 .container.active .form-box.Login .animation,
-.container .info-content.Login .animation {
+.container .info-content.Login {
     transform: translateX(-120%);
     opacity: 0;
     filter: blur(5px); 
@@ -278,7 +284,7 @@ input[type=number] {
 }
 
 .container .form-box.Register .animation,
-.container .info-content.Register .animation {
+.container .info-content.Register {
     transform: translateX(120%);
     transition: .7s ease;
     opacity: 0;
@@ -287,19 +293,19 @@ input[type=number] {
 }
 
 .container.active .form-box.Register .animation,
-.container.active .info-content.Register .animation {
+.container.active .info-content.Register {
     transform: translateX(0%);
     opacity: 1;
     filter: blur(0px);
     transition-delay: calc(.1s * var(--li));
 }
 
-.info-content.Login .animation {
+.info-content.Login {
     transform: translateX(0);
     transition: .7s ease;
-    transition-delay: calc(.1s * var(--S));
     opacity: 1;
     filter: blur(0px);
+    transition-delay: calc(.1s * var(--S));
 }
 
 .container .curved-shape {

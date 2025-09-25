@@ -11,17 +11,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- OTP Related Elements ---
     const sendOtpBtn = document.getElementById('sendOtpBtn');
     const otpSection = document.getElementById('otpSection');
+    const verifyOtpBtn = document.getElementById('verifyOtpBtn');
     const resendOtpBtn = document.getElementById('resendOtpBtn');
+    const registerBtn = document.getElementById('registerBtn');
     
-    // --- Toast Notification Elements ---
+    // --- Toast Notification ---
     const toast = document.getElementById('toast');
     const toastMessage = document.getElementById('toastMessage');
 
     // --- Logic Variables ---
     let generatedOtp = null;
     let timerInterval = null;
+    let isOtpVerified = false;
 
-    // --- UI TOGGLE LOGIC (Login <-> Register) ---
+    // --- UI TOGGLE LOGIC ---
     registerLink.addEventListener('click', () => container.classList.add('active'));
     loginLink.addEventListener('click', () => container.classList.remove('active'));
 
@@ -32,19 +35,18 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => toast.classList.remove('show'), 4000);
     };
 
-    // THIS IS THE TIMER FUNCTION
     const startTimer = () => {
         let timeLeft = 30;
-        resendOtpBtn.disabled = true; // Disable the button
-        resendOtpBtn.textContent = `Resend in ${timeLeft}s`;
+        resendOtpBtn.disabled = true;
+        resendOtpBtn.textContent = `Resend (${timeLeft}s)`;
 
-        clearInterval(timerInterval); // Clear any existing timer
+        clearInterval(timerInterval);
         timerInterval = setInterval(() => {
             timeLeft--;
-            resendOtpBtn.textContent = `Resend in ${timeLeft}s`;
+            resendOtpBtn.textContent = `Resend (${timeLeft}s)`;
             if (timeLeft <= 0) {
                 clearInterval(timerInterval);
-                resendOtpBtn.disabled = false; // Re-enable the button
+                resendOtpBtn.disabled = false;
                 resendOtpBtn.textContent = 'Resend';
             }
         }, 1000);
@@ -60,11 +62,28 @@ document.addEventListener('DOMContentLoaded', () => {
         generatedOtp = '123456';
         alert('An OTP has been sent (for demo, it is 123456)');
         otpSection.classList.remove('hidden');
-        startTimer(); // Start the timer
+        startTimer();
     };
 
     sendOtpBtn.addEventListener('click', handleSendOtp);
     resendOtpBtn.addEventListener('click', handleSendOtp);
+
+    // --- NEW: OTP Verification Logic ---
+    verifyOtpBtn.addEventListener('click', () => {
+        const enteredOtp = document.getElementById('registerOtp').value;
+        if (enteredOtp === generatedOtp) {
+            isOtpVerified = true;
+            registerBtn.disabled = false; // Enable the main register button
+            showToast('OTP Verified Successfully!');
+            // Optionally disable OTP fields after verification
+            document.getElementById('registerOtp').disabled = true;
+            verifyOtpBtn.disabled = true;
+            resendOtpBtn.disabled = true;
+        } else {
+            alert('Invalid OTP. Please try again.');
+            isOtpVerified = false;
+        }
+    });
 
 
     // --- AUTHENTICATION LOGIC ---
@@ -74,19 +93,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Handle Registration
     registerForm.addEventListener('submit', (e) => {
         e.preventDefault();
+        
+        if (!isOtpVerified) {
+            alert('Please verify your OTP before registering.');
+            return;
+        }
+
         const username = document.getElementById('registerUsername').value;
         const email = document.getElementById('registerEmail').value;
         const password = document.getElementById('registerPassword').value;
-        const enteredOtp = document.getElementById('registerOtp').value;
-
-        if (!generatedOtp) {
-            alert('Please send and verify the OTP first.');
-            return;
-        }
-        if (enteredOtp !== generatedOtp) {
-            alert('Invalid OTP. Please try again.');
-            return;
-        }
         
         const users = getUsers();
         if (users.find(user => user.username === username)) {
